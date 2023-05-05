@@ -1,11 +1,11 @@
 [
     {
-        "fistName": "John",
+        "firstName": "John",
         "lastName": "Doe",
         "age": 40
     },
     {
-        "fistName": "Jan",
+        "firstName": "Jan",
         "lastName": "Kowalski",
         "age": 20
     }

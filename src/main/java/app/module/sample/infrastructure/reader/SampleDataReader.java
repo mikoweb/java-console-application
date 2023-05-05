@@ -33,7 +33,7 @@ final public class SampleDataReader
 
     private SampleDTO mapItemToDTO(JSONObject jsonItem) {
         HashMap<String, Object> data = new HashMap<>();
-        data.put("fistName", jsonItem.get("fistName"));
+        data.put("firstName", jsonItem.get("firstName"));
         data.put("lastName", jsonItem.get("lastName"));
         data.put("age", jsonItem.get("age"));
 
