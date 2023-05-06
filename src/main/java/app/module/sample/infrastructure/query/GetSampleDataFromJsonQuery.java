@@ -15,7 +15,7 @@ final public class GetSampleDataFromJsonQuery implements SampleDataQuery {
         SampleDataReader reader = new SampleDataReader();
 
         try {
-            return reader.readFromJson("src/main/resources/json/sample/sampleDataForTable.json");
+            return reader.readFromJson("json/sample/sampleDataForTable.json");
         } catch (CannotReadFileException exception) {
             throw new FailedQueryException(exception.getMessage(), exception);
         }

@@ -7,25 +7,36 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 final public class SampleDataReader
 {
-    public ArrayList<SampleDTO> readFromJson(String jsonFilePath) throws CannotReadFileException {
+    public ArrayList<SampleDTO> readFromJson(String jsonResourceFilePath) throws CannotReadFileException {
         ArrayList<SampleDTO> list = new ArrayList<>();
 
-        try (FileReader reader = new FileReader(jsonFilePath)) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL jsonResource = classLoader.getResource(jsonResourceFilePath);
+
+        if (jsonResource == null) {
+            throwCannotOpen(jsonResourceFilePath);
+        }
+
+        File jsonFile = new File(jsonResource.getFile());
+
+        try (FileReader reader = new FileReader(jsonFile)) {
             JSONParser jsonParser = new JSONParser();
             JSONArray sampleData = (JSONArray) jsonParser.parse(reader);
 
             for (Object item : sampleData) {
                 list.add(mapItemToDTO((JSONObject) item));
             }
-        }  catch (IOException | ParseException exception) {
-            throwCannotRead(jsonFilePath);
+        } catch (IOException | ParseException exception) {
+            throwCannotRead(jsonResourceFilePath);
         }
 
         return list;
@@ -40,7 +51,11 @@ final public class SampleDataReader
         return new SampleDTO(data);
     }
 
-    private void throwCannotRead(String jsonFilePath) throws CannotReadFileException{
+    private void throwCannotOpen(String jsonFilePath) throws CannotReadFileException {
+        throw new CannotReadFileException("Not found resource file " + jsonFilePath);
+    }
+
+    private void throwCannotRead(String jsonFilePath) throws CannotReadFileException {
         throw new CannotReadFileException("Cannot read file " + jsonFilePath);
     }
 }
