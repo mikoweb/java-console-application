@@ -6,29 +6,20 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 final public class SampleDataReader
 {
     public ArrayList<SampleDTO> readFromJson(String jsonResourceFilePath) throws CannotReadFileException {
+        ClassPathResource jsonResource = new ClassPathResource(jsonResourceFilePath);
         ArrayList<SampleDTO> list = new ArrayList<>();
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL jsonResource = classLoader.getResource(jsonResourceFilePath);
-
-        if (jsonResource == null) {
-            throwCannotOpen(jsonResourceFilePath);
-        }
-
-        File jsonFile = new File(jsonResource.getFile());
-
-        try (FileReader reader = new FileReader(jsonFile)) {
+        try (FileReader reader = new FileReader(jsonResource.getFile())) {
             JSONParser jsonParser = new JSONParser();
             JSONArray sampleData = (JSONArray) jsonParser.parse(reader);
 
@@ -49,10 +40,6 @@ final public class SampleDataReader
         data.put("age", jsonItem.get("age"));
 
         return new SampleDTO(data);
-    }
-
-    private void throwCannotOpen(String jsonFilePath) throws CannotReadFileException {
-        throw new CannotReadFileException("Not found resource file " + jsonFilePath);
     }
 
     private void throwCannotRead(String jsonFilePath) throws CannotReadFileException {
