@@ -40,3 +40,4 @@ build/
 
 ### Spring ###
 spring-shell.log
+spring-app.log
