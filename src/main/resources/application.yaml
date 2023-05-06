@@ -1,0 +1,11 @@
+spring:
+  main:
+    web-application-type: none
+    lazy-initialization: false
+    banner-mode: off
+    log-startup-info: true
+
+logging:
+  file:
+    path: ./
+    name: spring-app.log
