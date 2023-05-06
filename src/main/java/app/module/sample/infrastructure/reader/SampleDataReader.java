@@ -6,20 +6,33 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@Service
 final public class SampleDataReader
 {
+    private final ResourceLoader resourceLoader;
+
+    @Autowired
+    public SampleDataReader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
     public ArrayList<SampleDTO> readFromJson(String jsonResourceFilePath) throws CannotReadFileException {
-        ClassPathResource jsonResource = new ClassPathResource(jsonResourceFilePath);
+        Resource jsonResource = resourceLoader.getResource("classpath:" + jsonResourceFilePath);
         ArrayList<SampleDTO> list = new ArrayList<>();
 
-        try (FileReader reader = new FileReader(jsonResource.getFile())) {
+        try (InputStream jsonStream = jsonResource.getInputStream()) {
+            InputStreamReader reader = new InputStreamReader(jsonStream);
             JSONParser jsonParser = new JSONParser();
             JSONArray sampleData = (JSONArray) jsonParser.parse(reader);
 
