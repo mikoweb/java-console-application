@@ -29,23 +29,26 @@ final public class SampleTableCommand {
 
     @ShellMethod(key = "sample:table", value = "Sample command with Table")
     public void execute() {
+        ArrayList<SampleDTO> sampleData;
+
         try {
-            ArrayList<SampleDTO> sampleData = getSampleDataFromJsonQuery.getData();
-
-            TableModelBuilder<Object> modelBuilder = new TableModelBuilder<>();
-            modelBuilder.addRow().addValue("First Name").addValue("Last Name").addValue("Age");
-
-            for (SampleDTO item : sampleData) {
-                modelBuilder.addRow().addValue(item.firstName).addValue(item.lastName).addValue(item.age);
-            }
-
-            TableBuilder tableBuilder = new TableBuilder(modelBuilder.build());
-            tableBuilder.addFullBorder(BorderStyle.oldschool);
-
-            System.out.println(tableBuilder.build().render(TABLE_MAX_WIDTH));
+            sampleData = getSampleDataFromJsonQuery.getData();
         } catch (FailedQueryException exception) {
             catchCannotLoadSampleData();
+            return;
         }
+
+        TableModelBuilder<Object> modelBuilder = new TableModelBuilder<>();
+        modelBuilder.addRow().addValue("First Name").addValue("Last Name").addValue("Age");
+
+        for (SampleDTO item : sampleData) {
+            modelBuilder.addRow().addValue(item.firstName).addValue(item.lastName).addValue(item.age);
+        }
+
+        TableBuilder tableBuilder = new TableBuilder(modelBuilder.build());
+        tableBuilder.addFullBorder(BorderStyle.oldschool);
+
+        System.out.println(tableBuilder.build().render(TABLE_MAX_WIDTH));
     }
 
     private void catchCannotLoadSampleData() {
