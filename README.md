@@ -2,6 +2,10 @@
 
 Go to `src/main/java/app/module/sample/application/command` directory to show commands source code.
 
+## Installation
+
+    mvn dependency:copy-dependencies
+
 ## Build JAR and run
 
 Build:
