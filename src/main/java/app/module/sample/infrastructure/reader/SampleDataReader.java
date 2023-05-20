@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @Service
 final public class SampleDataReader
@@ -47,12 +46,7 @@ final public class SampleDataReader
     }
 
     private SampleDTO mapItemToDTO(JSONObject jsonItem) {
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("firstName", jsonItem.get("firstName"));
-        data.put("lastName", jsonItem.get("lastName"));
-        data.put("age", jsonItem.get("age"));
-
-        return new SampleDTO(data);
+        return new SampleDTO(jsonItem);
     }
 
     private void throwCannotRead(String jsonFilePath) throws CannotReadFileException {
