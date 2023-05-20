@@ -42,7 +42,11 @@ final public class SampleTableCommand {
         modelBuilder.addRow().addValue("First Name").addValue("Last Name").addValue("Age");
 
         for (SampleDTO item : sampleData) {
-            modelBuilder.addRow().addValue(item.firstName).addValue(item.lastName).addValue(item.age);
+            modelBuilder.addRow()
+                .addValue(item.firstName())
+                .addValue(item.lastName())
+                .addValue(item.age())
+            ;
         }
 
         TableBuilder tableBuilder = new TableBuilder(modelBuilder.build());

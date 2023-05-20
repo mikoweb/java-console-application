@@ -2,14 +2,16 @@ package app.module.sample.domain.dto;
 
 import java.util.HashMap;
 
-final public class SampleDTO {
-    public final String firstName;
-    public final String lastName;
-    public final long age;
-
+public record SampleDTO (
+    String firstName,
+    String lastName,
+    long age
+) {
     public SampleDTO(HashMap<String, Object> data) {
-        this.firstName = (String) data.get("firstName");
-        this.lastName = (String) data.get("lastName");
-        this.age = (long) data.get("age");
+        this(
+            (String) data.get("firstName"),
+            (String) data.get("lastName"),
+            (long) data.get("age")
+        );
     }
 }
