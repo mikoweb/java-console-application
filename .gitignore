@@ -42,3 +42,6 @@ build/
 spring-shell.log
 spring-app.log
 spring-app.log.*
+
+### App ###
+datasets
