@@ -1,7 +1,5 @@
 package app.module.song.domain.dto;
 
-import de.siegmar.fastcsv.reader.NamedCsvRow;
-
 import java.util.Objects;
 
 public record UserFavoriteSongDTO(
