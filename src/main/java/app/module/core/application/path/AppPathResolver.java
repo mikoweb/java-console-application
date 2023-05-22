@@ -14,4 +14,8 @@ public final class AppPathResolver {
     public Path getAppDatasetPath(String path) {
         return getAppPath("datasets/".concat(path));
     }
+
+    public Path getStoragePath(String path) {
+        return getAppPath("storage/".concat(path));
+    }
 }
