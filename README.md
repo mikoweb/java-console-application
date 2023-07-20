@@ -45,3 +45,7 @@ In Idea IDE use tab `Maven` -> `Execute Maven Goal` button.
 ### Execute native app
 
     target/console
+
+## Copyrights
+
+Copyright (c) Rafał Mikołajun 2023.
