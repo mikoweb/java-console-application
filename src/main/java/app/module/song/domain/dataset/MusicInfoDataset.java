@@ -2,7 +2,7 @@ package app.module.song.domain.dataset;
 
 import de.siegmar.fastcsv.reader.NamedCsvRow;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-public final class MusicInfoDataset extends HashMap<String, NamedCsvRow> {
+public final class MusicInfoDataset extends LinkedHashMap<String, NamedCsvRow> {
 }

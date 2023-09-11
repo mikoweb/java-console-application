@@ -33,12 +33,13 @@ public class GenerateUsersFavoriteSongsReportCommand {
 
     @ShellMethod(value = "Generate user's favorite songs report", key = "song:generate-users-favorite-songs-report")
     public void execute() {
-        UsersFavoriteSongsDataset favoriteSongs = null;
+        UsersFavoriteSongsDataset favoriteSongs;
 
         try {
             favoriteSongs = findUsersFavoriteSongsQuery.find();
         } catch (FailedQueryException exception) {
             catchFailedQuery();
+            return;
         }
 
         try {

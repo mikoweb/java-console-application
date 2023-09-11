@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
@@ -21,7 +21,7 @@ public final class FindUsersFavoriteSongsQuery {
     private final MusicInfoReader musicInfoReader;
     private final UserListeningHistoryReader userListeningHistoryReader;
 
-    private static final class ListeningMap extends HashMap<String, HashMap<String, Integer>> {}
+    private static final class ListeningMap extends LinkedHashMap<String, LinkedHashMap<String, Integer>> {}
 
     @Autowired
     public FindUsersFavoriteSongsQuery(
@@ -62,12 +62,12 @@ public final class FindUsersFavoriteSongsQuery {
     private void appendListeningToMap(UserListeningDTO listeningDTO, ListeningMap listeningMap) {
         String userId = listeningDTO.userId();
         String trackId = listeningDTO.trackId();
-        HashMap<String, Integer> userSongsCountMap;
+        LinkedHashMap<String, Integer> userSongsCountMap;
 
         if (listeningMap.containsKey(userId)) {
             userSongsCountMap = listeningMap.get(userId);
         } else {
-            userSongsCountMap = new HashMap<>();
+            userSongsCountMap = new LinkedHashMap<>();
             listeningMap.put(userId, userSongsCountMap);
         }
 
